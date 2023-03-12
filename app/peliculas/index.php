@@ -65,13 +65,14 @@ $dir = "posters/";
         </table>
 
         <!-- Alert -->
-        <?php if (isset($_SESSION['msg'])) { ?>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <?php if (isset($_SESSION['msg']) && isset($_SESSION['color'])) { ?>
+            <div class="alert alert-<?= $_SESSION['color']; ?> alert-dismissible fade show" role="alert">
                 <?php echo $_SESSION['msg']; ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         <?php
             unset($_SESSION['msg']);
+            unset($_SESSION['color']);
         } ?>
 
 
@@ -100,6 +101,7 @@ $dir = "posters/";
             let inputNombre = editaModal.querySelector('.modal-body #nombre')
             let inputDescripcion = editaModal.querySelector('.modal-body #descripcion')
             let inputGenero = editaModal.querySelector('.modal-body #genero')
+            let poster = editaModal.querySelector('.modal-body #img_poster')
 
             //Ajax
             let url = "getPelicula.php"
@@ -115,6 +117,7 @@ $dir = "posters/";
                     inputNombre.value = data.nombre
                     inputDescripcion.value = data.descripcion
                     inputGenero.value = data.id_genero
+                    poster.src = '<?= $dir ?>' + data.id + '.jpg';
                 }).catch(err => console.log(err))
         })
 

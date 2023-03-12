@@ -21,12 +21,17 @@
                         <label for="genero" class="form-label">Género</label>
                         <select class="form-select" name="genero" id="genero">
                             <option value="" selected disabled>Seleccione..</option>
-                            <?php while ($row_genero = $generos -> fetch_assoc()) {?>
+                            <?php while ($row_genero = $generos->fetch_assoc()) { ?>
                                 <option value="<?= $row_genero['id']; ?>">
                                     <?= $row_genero['nombre']; ?>
                                 </option>
-                                <?php } ?>
+                            <?php } ?>
                         </select>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <img src="" alt="" id="img_poster" name="img_poster" width="200">
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="poster" class="form-label">Poster</label>
@@ -34,7 +39,7 @@
                     </div>
                     <div class="row justify-content-end">
                         <div class="col-auto">
-                            <button type="submit"  class="btn btn-success">
+                            <button type="submit" class="btn btn-success">
                                 <i class="fa-solid fa-circle-check"></i> Actualizar
                             </button>
                         </div>
