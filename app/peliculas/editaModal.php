@@ -30,7 +30,7 @@
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-auto">
-                            <img src="" alt="" id="img_poster" name="img_poster" width="200">
+                            <img src="" alt="" id="img_poster" name="img_poster" width="300">
                         </div>
                     </div>
                     <div class="mb-3">

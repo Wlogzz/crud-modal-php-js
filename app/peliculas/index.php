@@ -48,7 +48,7 @@ $dir = "posters/";
                         <td><?= $row_pelicula['descripcion']; ?></td>
                         <td><?= $row_pelicula['genero']; ?></td>
                         <td>
-                            <img src="<?= $dir .$row_pelicula['id'].'.jpg'; ?>" alt="<?= $row_pelicula['nombre'];?>" width="80">
+                            <img src="<?= $dir .$row_pelicula['id'].'.jpg?=n' . time(); ?>" alt="<?= $row_pelicula['nombre'];?>" width="80">
                         </td>
                         <td><?= $row_pelicula['fecha_alta']; ?></td>
                         <td class="text-center">
@@ -117,7 +117,7 @@ $dir = "posters/";
                     inputNombre.value = data.nombre
                     inputDescripcion.value = data.descripcion
                     inputGenero.value = data.id_genero
-                    poster.src = '<?= $dir ?>' + data.id + '.jpg';
+                    poster.src = '<?= $dir ?>' + data.id + '<?='.jpg?=n' . time()?>';
                 }).catch(err => console.log(err))
         })
 
