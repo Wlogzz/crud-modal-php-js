@@ -12,6 +12,9 @@ $generos = $conn->query($sqlGenero);
 $sqlPeliculas = "SELECT p.id, p.nombre, p.descripcion, g.nombre AS genero, p.fecha_alta FROM pelicula AS p 
                     INNER JOIN genero as g ON p.id_genero = g.id ORDER BY p.id DESC";
 $peliculas = $conn->query($sqlPeliculas);
+
+// Definir ruta imágenes
+$dir = "posters/";
 ?>
 
 <?php include('../templates/header.php'); ?>
@@ -44,7 +47,9 @@ $peliculas = $conn->query($sqlPeliculas);
                         <td><?= $row_pelicula['nombre']; ?></td>
                         <td><?= $row_pelicula['descripcion']; ?></td>
                         <td><?= $row_pelicula['genero']; ?></td>
-                        <td><?= $row_pelicula['nombre']; ?></td>
+                        <td>
+                            <img src="<?= $dir .$row_pelicula['id'].'.jpg'; ?>" alt="<?= $row_pelicula['nombre'];?>" width="80">
+                        </td>
                         <td><?= $row_pelicula['fecha_alta']; ?></td>
                         <td class="text-center">
                             <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editaModal" data-bs-id="<?= $row_pelicula['id']; ?>">
