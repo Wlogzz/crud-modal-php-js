@@ -1,0 +1,9 @@
+# ignores all .md files
+.md
+
+# Ignore dir posters
+/app/peliculas/posters
+
+# compiled output
+/dist
+/tmp
