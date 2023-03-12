@@ -1,15 +1,17 @@
-<?php 
-    require('../config/db.php');
-   
-    // Traer datos tabla Género
-    $sqlGenero = "SELECT * FROM genero";
-    $generos = $conn -> query($sqlGenero);
+<?php
+require('../config/db.php');
+
+session_start();
+
+// Traer datos tabla Género
+$sqlGenero = "SELECT * FROM genero";
+$generos = $conn->query($sqlGenero);
 
 
-    // Traer datos tabla pelicula
-    $sqlPeliculas ="SELECT p.id, p.nombre, p.descripcion, g.nombre AS genero, p.fecha_alta FROM pelicula AS p 
+// Traer datos tabla pelicula
+$sqlPeliculas = "SELECT p.id, p.nombre, p.descripcion, g.nombre AS genero, p.fecha_alta FROM pelicula AS p 
                     INNER JOIN genero as g ON p.id_genero = g.id ORDER BY p.id DESC";
-    $peliculas = $conn -> query($sqlPeliculas);
+$peliculas = $conn->query($sqlPeliculas);
 ?>
 
 <?php include('../templates/header.php'); ?>
@@ -36,37 +38,45 @@
                 </tr>
             </thead>
             <tbody>
-                <?php while ($row_pelicula = $peliculas -> fetch_assoc()) { ?>
-                <tr>
-                    <td scope="row"><?= $row_pelicula['id']; ?></td>
-                    <td><?= $row_pelicula['nombre']; ?></td>
-                    <td><?= $row_pelicula['descripcion']; ?></td>
-                    <td><?= $row_pelicula['genero']; ?></td>
-                    <td><?= $row_pelicula['nombre']; ?></td>
-                    <td><?= $row_pelicula['fecha_alta']; ?></td>
-                    <td class="text-center">
-                        <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editaModal"
-                        data-bs-id="<?= $row_pelicula['id']; ?>">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
-                        <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminaModal"
-                        data-bs-id="<?= $row_pelicula['id']; ?>">
-                            <i class="fa-solid fa-trash"></i>
-                        </a>
-                    </td>
-                </tr>
+                <?php while ($row_pelicula = $peliculas->fetch_assoc()) { ?>
+                    <tr>
+                        <td scope="row"><?= $row_pelicula['id']; ?></td>
+                        <td><?= $row_pelicula['nombre']; ?></td>
+                        <td><?= $row_pelicula['descripcion']; ?></td>
+                        <td><?= $row_pelicula['genero']; ?></td>
+                        <td><?= $row_pelicula['nombre']; ?></td>
+                        <td><?= $row_pelicula['fecha_alta']; ?></td>
+                        <td class="text-center">
+                            <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editaModal" data-bs-id="<?= $row_pelicula['id']; ?>">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminaModal" data-bs-id="<?= $row_pelicula['id']; ?>">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
                 <?php } ?>
             </tbody>
         </table>
+
+        <!-- Alert -->
+        <?php if (isset($_SESSION['msg'])) { ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <?php echo $_SESSION['msg']; ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php
+            unset($_SESSION['msg']);
+        } ?>
 
 
         <?php include('nuevoModal.php') ?>
 
         <!-- Reinicia el select de editaModal -->
-        <?php $generos -> data_seek(0); ?>
+        <?php $generos->data_seek(0); ?>
 
         <?php include('editaModal.php') ?>
-        
+
         <?php include('eliminaModal.php') ?>
 
     </div><!-- .container -->
@@ -80,27 +90,27 @@
             let button = event.relatedTarget
             let id = button.getAttribute('data-bs-id')
 
-        // Acceder a los datos del formulario para editar
+            // Acceder a los datos del formulario para editar
             let inputId = editaModal.querySelector('.modal-body #id')
             let inputNombre = editaModal.querySelector('.modal-body #nombre')
             let inputDescripcion = editaModal.querySelector('.modal-body #descripcion')
             let inputGenero = editaModal.querySelector('.modal-body #genero')
 
-        //Ajax
-            let url  = "getPelicula.php"
+            //Ajax
+            let url = "getPelicula.php"
             let formData = new FormData()
             formData.append('id', id)
 
             fetch(url, {
-                method: "POST",
-                body: formData
-            }).then(response => response.json())
-            .then(data => {
-                inputId.value = data.id
-                inputNombre.value = data.nombre
-                inputDescripcion.value = data.descripcion
-                inputGenero.value = data.id_genero
-            }).catch(err => console.log(err))
+                    method: "POST",
+                    body: formData
+                }).then(response => response.json())
+                .then(data => {
+                    inputId.value = data.id
+                    inputNombre.value = data.nombre
+                    inputDescripcion.value = data.descripcion
+                    inputGenero.value = data.id_genero
+                }).catch(err => console.log(err))
         })
 
         // Función Eliminar
@@ -110,7 +120,6 @@
 
             eliminaModal.querySelector('.modal-body #id').value = id
         })
-
     </script>
 
-<?php include('../templates/footer.php'); ?>
+    <?php include('../templates/footer.php'); ?>

@@ -1,5 +1,5 @@
 <?php 
-    $srv ="127.0.0.1";
+    $srv ="localhost";
     $usr = "root";
     $pwd = "";
     $db = "cinemas";
