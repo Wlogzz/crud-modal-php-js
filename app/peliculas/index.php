@@ -48,7 +48,7 @@ $dir = "posters/";
                         <td><?= $row_pelicula['descripcion']; ?></td>
                         <td><?= $row_pelicula['genero']; ?></td>
                         <td>
-                            <img src="<?= $dir .$row_pelicula['id'].'.jpg?=n' . time(); ?>" alt="<?= $row_pelicula['nombre'];?>" width="80">
+                            <img src="<?= $dir . $row_pelicula['id'] . '.jpg?=n' . time(); ?>" alt="<?= $row_pelicula['nombre']; ?>" width="80">
                         </td>
                         <td><?= $row_pelicula['fecha_alta']; ?></td>
                         <td class="text-center">
@@ -88,8 +88,28 @@ $dir = "posters/";
     </div><!-- .container -->
 
     <script>
+        let nuevoModal = document.getElementById('nuevoModal')
         let editaModal = document.getElementById('editaModal')
         let eliminaModal = document.getElementById('eliminaModal')
+
+        // Agregar puntero en el primer input del modal
+        nuevoModal.addEventListener('shown.bs.modal', event => {
+            nuevoModal.querySelector('.modal-body #nombre').focus()
+        })
+
+        // Función barrer modal (nuevo-edita)
+        nuevoModal.addEventListener('hide.bs.modal', event => {
+            nuevoModal.querySelector('.modal-body #nombre').value = ""
+            nuevoModal.querySelector('.modal-body #descripcion').value = ""
+            nuevoModal.querySelector('.modal-body #genero').value = ""
+            nuevoModal.querySelector('.modal-body #poster').value = ""
+        })
+        editaModal.addEventListener('hide.bs.modal', event => {
+            editaModal.querySelector('.modal-body #nombre').value = ""
+            editaModal.querySelector('.modal-body #descripcion').value = ""
+            editaModal.querySelector('.modal-body #genero').value = ""
+            editaModal.querySelector('.modal-body #img_poster').value = ""
+        })
 
         // Función editar
         editaModal.addEventListener('shown.bs.modal', event => {
@@ -117,7 +137,7 @@ $dir = "posters/";
                     inputNombre.value = data.nombre
                     inputDescripcion.value = data.descripcion
                     inputGenero.value = data.id_genero
-                    poster.src = '<?= $dir ?>' + data.id + '<?='.jpg?=n' . time()?>';
+                    poster.src = '<?= $dir ?>' + data.id + '<?= '.jpg?=n' . time() ?>';
                 }).catch(err => console.log(err))
         })
 
