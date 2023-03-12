@@ -19,6 +19,9 @@
            <li class="nav-item">
                <a class="nav-link" href="/app/peliculas/">Películas</a>
            </li>
+           <li class="nav-item">
+               <a class="nav-link" href="/app/generos/">Géneros</a>
+           </li>
        </ul>
    </nav>
    <main class="container mt-5 mb-5">
